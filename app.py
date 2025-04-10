@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 
 # Load model
-with open("rf_delay_model.pkl", "rb") as file:
+with open("./rf_delay_model.pkl", "rb") as file:
     model = pickle.load(file)
 
 # Load test data with metadata
