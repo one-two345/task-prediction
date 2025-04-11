@@ -9,23 +9,25 @@ with open("rf_delay_model.pkl", "rb") as file:
 # Load test data with metadata
 df = pd.read_csv("test_data.csv")
 
+# Fill NaNs if any project names were missing in original data
+df['name'] = df['name'].fillna("Unnamed Task")
+df['project_name'] = df['project_name'].fillna("Unknown Project")
+
 st.title("🚀 Task Delay Prediction Interface")
-st.write("Select a task to view the predicted vs actual delay in days.")
+st.write("Select a task to view its predicted and actual delay.")
 
-# Combine name + project for display
-df['display_name'] = df['name'] + " " +" (Project: " + df['project_name'] + ")"
+# Create custom display string
+df['display_name'] = df['name'] + " (Project: " + df['project_name'] + ")"
 
-# Dropdown with default index = 1
+# Dropdown with index=1 as default
 selected_index = st.selectbox(
     "Choose a Task",
     options=df.index,
     format_func=lambda i: df.loc[i, "display_name"],
-    index=2,
-    key="task_selector"
+    index=1
 )
 
-
-# Show results
+# Display prediction results
 row = df.loc[selected_index]
 st.subheader("📊 Prediction Results")
 st.write(f"**Task Name:** {row['name']}")
