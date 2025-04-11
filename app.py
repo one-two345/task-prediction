@@ -20,8 +20,10 @@ selected_index = st.selectbox(
     "Choose a Task",
     options=df.index,
     format_func=lambda i: df.loc[i, "display_name"],
-    index=2
+    index=2,
+    key="task_selector"
 )
+
 
 # Show results
 row = df.loc[selected_index]
